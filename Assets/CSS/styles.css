@@ -1,0 +1,131 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+section{
+    height: 100vh;
+    width: 100%;
+}
+#main{
+    background-image: linear-gradient(rgba(0,0,0,0.9),rgba(255, 255, 255, 0),rgba(0,0,0,0.9)),url("Img/BGimg.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+.whole-con{
+    height: 350px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+.box1{
+    height: 350px;
+    width: 220px;
+    border: 3px solid rgb(163, 198, 225);
+    box-shadow: 0px 3px 20px 10px rgb(48, 107, 152);
+    border-radius: 20px;
+    transition: 0.15s;    
+}
+.box1:hover{
+    height: 380px;
+    width: 230px;
+    border: 3px solid rgb(163, 198, 225);
+    box-shadow: -7px 10px 20px 10px rgb(153, 165, 174);
+    border-radius: 20px;
+}
+.box2{
+    height: 100%;
+    width: 220px;
+    border: 3px solid rgb(163, 198, 225);
+    box-shadow: 0px 3px 20px 10px rgb(48, 107, 152);;
+    border-radius: 20px;
+    transition: 0.15s;
+}
+.box2:hover{
+    height: 110%;
+    width: 230px;
+    border: 3px solid rgb(163, 198, 225);
+    box-shadow: -7px 10px 20px 10px rgb(153, 165, 174);
+    border-radius: 20px;
+}
+.box3{
+    height: 350px;
+    width: 220px;
+    border: 3px solid rgb(163, 198, 225);
+    box-shadow: 0px 3px 20px 10px rgb(48, 107, 152);
+    border-radius: 20px;
+    transition: 0.15s;
+}
+.box3:hover{
+    height: 380px;
+    width: 230px;
+    border: 3px solid rgb(163, 198, 225);
+    box-shadow: 7px 10px 20px 10px rgb(153, 165, 174);
+    border-radius: 20px;
+}
+.box4{
+    height: 350px;
+    width: 220px;
+    border: 3px solid rgb(163, 198, 225);
+    box-shadow: 0px 3px 20px 10px rgb(48, 107, 152);
+    border-radius: 20px;
+    transition: 0.15s;
+}
+.box4:hover{
+    height: 380px;
+    width: 230px;
+    border: 3px solid rgb(163, 198, 225);
+    box-shadow: 7px 10px 20px 10px rgb(153, 165, 174);
+    border-radius: 20px;
+}
+.img-con{
+    height: 180px;
+    width: 99%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    border: 2px solid rgb(147, 141, 190);
+}
+.img{
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+}
+.text-con{
+    height: 40px;
+    width: 20px2;
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+p{
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+a{
+    text-decoration: none;
+}
+a:visited{
+    color: white;
+    text-decoration: none;
+}
+.box1-para{
+    color: white;
+    font-size: 15px;
+    font-weight: normal;
+    text-align: center;
+}
+.box1-para-hovr:hover{
+    font-size: 20px;
+}
+.box1-para-hovr{
+    font-size: 15px;
+    text-align: center;
+}
+

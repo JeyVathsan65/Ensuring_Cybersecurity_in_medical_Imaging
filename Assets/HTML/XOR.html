@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Encryption</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-image: linear-gradient(rgba(0,0,0,0.9),rgba(255, 255, 255, 0),rgba(0,0,0,0.9)),url("/Assets/CSS/Img/BGimg.webp");
+        }
+
+        .container {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin-top: 10px;
+            box-shadow: 0px 0px 10px 5px rgb(92, 92, 228);
+            border-radius: 10px;
+            margin: 80px 40px 0px 100px;
+            border: solid rgb(92, 92, 228) 5px;
+        }
+        h1{
+            color: white;
+        }
+        .sf{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>XOR Image Encryption</h1>
+    <div class="container">
+        <label for="encryptionKey" class="sf">Enter Encryption/Decryption Key:</label>
+        <input type="text" id="encryptionKey">
+    </div>
+
+    <div class="container">
+        <input type="file" id="fileInput">
+    </div>
+
+    <button class="btn" onclick="encryptImage()">Encrypt Image</button>
+    <button class="btn" onclick="decryptImage()">Decrypt Image</button>
+
+    <script>
+        alert("Welcome XOR Encryption");
+        function encryptImage() {
+            var key = parseInt(document.getElementById("encryptionKey").value);
+            var fileInput = document.getElementById("fileInput");
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function() {
+                var data = new Uint8Array(reader.result);
+                for (var i = 0; i < data.length; i++) {
+                    data[i] ^= key;
+                }
+                var encryptedBlob = new Blob([data], { type: file.type });
+                var encryptedFile = new File([encryptedBlob], file.name);
+                download(encryptedFile);
+            };
+
+            reader.readAsArrayBuffer(file);
+        }
+        function decryptImage() {
+            var key = parseInt(document.getElementById("encryptionKey").value);
+            var fileInput = document.getElementById("fileInput");
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function() {
+                var data = new Uint8Array(reader.result);
+                for (var i = 0; i < data.length; i++) {
+                    data[i] ^= key;
+                }
+                var decryptedBlob = new Blob([data], { type: file.type });
+                var decryptedFile = new File([decryptedBlob], file.name);
+                download(decryptedFile, "decrypted_" + file.name);
+            };
+
+            reader.readAsArrayBuffer(file);
+        }
+
+        function download(file) {
+            var a = document.createElement("a");
+            var url = URL.createObjectURL(file);
+            a.href = url;
+            a.download = file.name;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+</html>

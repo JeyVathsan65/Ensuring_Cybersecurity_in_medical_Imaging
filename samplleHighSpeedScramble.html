@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Scrambler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #imageDisplay {
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Pixel Scrambler</h1>
+
+<input type="file" id="imageInput" accept="image/*">
+<div id="imageDisplay"></div>
+<div id="pixelCount"></div>
+<button onclick="scramblePixels()">Encrypt</button>
+<button onclick="unscramblePixels()">Decrypt</button>
+
+<script>
+    let imageData;
+    let canvas;
+    let ctx;
+    let originalImageData; // To store the original image data
+
+    document.getElementById("imageInput").addEventListener("change", function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.src = e.target.result;
+                img.onload = function() {
+                    canvas = document.createElement("canvas");
+                    ctx = canvas.getContext("2d");
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0, img.width, img.height);
+                    imageData = ctx.getImageData(0, 0, img.width, img.height);
+                    originalImageData = ctx.getImageData(0, 0, img.width, img.height); // Save original image data
+                    const pixelCount = imageData.data.length / 4; // Each pixel has 4 values (RGBA)
+                    document.getElementById("imageDisplay").innerHTML = "<img src='" + img.src + "' width='100%'>";
+                    document.getElementById("pixelCount").textContent = "Number of pixels: " + pixelCount;
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    function scramblePixels() {
+        if (!imageData) {
+            alert("Please select an image first.");
+            return;
+        }
+
+        const pixels = imageData.data;
+        const pixelCount = pixels.length / 4; // Each pixel has 4 values (RGBA)
+
+        // Scramble pixels for the same number of times as there are pixels in the image
+        for (let i = 0; i < pixelCount; i++) {
+            const index1 = Math.floor(Math.random() * pixelCount);
+            const index2 = Math.floor(Math.random() * pixelCount);
+            swapPixelColors(pixels, index1, index2);
+        }
+
+        // Redraw the image with scrambled pixels
+        ctx.putImageData(imageData, 0, 0);
+        const scrambledImageSrc = canvas.toDataURL();
+        document.getElementById("imageDisplay").innerHTML = "<img src='" + scrambledImageSrc + "' width='100%'>";
+    }
+
+    function unscramblePixels() {
+        if (!imageData) {
+            alert("Please select an image first.");
+            return;
+        }
+
+        // Restore original image data
+        imageData = originalImageData;
+
+        // Redraw the image with unscrambled pixels
+        ctx.putImageData(imageData, 0, 0);
+        const unscrambledImageSrc = canvas.toDataURL();
+        document.getElementById("imageDisplay").innerHTML = "<img src='" + unscrambledImageSrc + "' width='100%'>";
+    }
+
+    function swapPixelColors(pixels, index1, index2) {
+        // Swap RGB values of two pixels
+        for (let i = 0; i < 3; i++) { // Only swap RGB values, ignoring A (alpha) value
+            const temp = pixels[index1 * 4 + i];
+            pixels[index1 * 4 + i] = pixels[index2 * 4 + i];
+            pixels[index2 * 4 + i] = temp;
+        }
+    }
+</script>
+
+</body>
+</html>
